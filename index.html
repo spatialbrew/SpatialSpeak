@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+	<title>SpatialSpeak</title>
+
+	<style>
+	html,body { height:100%;}
+		#map { height: 95%; width:100%;}
+		#title { font-size:2em; text-align:center;}
+	</style>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+ 	<!--[if lte IE 8]>
+    	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+ 	<![endif]-->
+</head>
+
+<body>
+ <header id="title">Get To the Point!</header>
+ <div id="map"></div>
+ <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+
+ <script>
+	var map = L.map('map').setView([30.69523, -88.18275], 16);
+	L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+	}).addTo(map);
+
+	var timeoutID;
+	var index = 0;
+	var locations = [
+		{lat: 33.57, lon: -86.75},
+		{lat: 30.68, lon: -88.25},
+		{lat: 32.67, lon: -85.44},
+		{lat: 33.23, lon: -87.62}
+	];
+	function beginPresentation(){
+		timeoutID = window.setInterval(nextLocation, 5000);  //120000
+	}
+	function nextLocation(){
+		map.panTo(locations[index]);
+		if(index === locations.length - 1){
+			index = 0;
+		}
+		else{
+			index++;
+		}
+	}
+	map.setZoom(10);
+	beginPresentation();
+</script>
+</body>
+
+</html>
